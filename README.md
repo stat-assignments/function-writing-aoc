@@ -1,1 +1,145 @@
-# function-writing-aoc
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# Writing functions: Advent of Code
+
+<!-- badges: start -->
+
+<!-- badges: end -->
+
+For more than a decade, Eric Wastl has been masterminding the [Advent of
+Code](https://adventofcode.com/2025/about). Each year, on December 1st,
+a series of puzzles is released. You need to solve all, of course, to
+save Christmas.
+
+The following is Advent of Code question 1 from 2025:
+
+> You arrive at the secret entrance to the North Pole base ready to
+> start decorating. Unfortunately, the password seems to have been
+> changed, so you can’t get in. A document taped to the wall helpfully
+> explains:
+
+> “Due to new security protocols, the password is locked in the safe
+> below. Please see the attached document for the new combination.”
+
+> The safe has a dial with only an arrow on it; around the dial are the
+> numbers 0 through 99 in order. As you turn the dial, it makes a small
+> click noise as it reaches each number.
+
+> The [attached document](input1.txt) (your puzzle input) contains a
+> sequence of rotations, one per line, which tell you how to open the
+> safe. A rotation starts with an L or R which indicates whether the
+> rotation should be to the left (toward lower numbers) or to the right
+> (toward higher numbers). Then, the rotation has a distance value which
+> indicates how many clicks the dial should be rotated in that
+> direction.
+
+> So, if the dial were pointing at 11, a rotation of R8 would cause the
+> dial to point at 19. After that, a rotation of L19 would cause it to
+> point at 0.
+
+> Because the dial is a circle, turning the dial left from 0 one click
+> makes it point at 99. Similarly, turning the dial right from 99 one
+> click makes it point at 0.
+
+> So, if the dial were pointing at 5, a rotation of L10 would cause it
+> to point at 95. After that, a rotation of R5 could cause it to point
+> at 0.
+
+> The dial starts by pointing at 50.
+
+> You could follow the instructions, but your recent required official
+> North Pole secret entrance security training seminar taught you that
+> the safe is actually a decoy. The actual password is the number of
+> times the dial is left pointing at 0 after any rotation in the
+> sequence.
+
+> For example, suppose the attached document contained the following
+> rotations:
+
+    L68
+    L30
+    R48
+    L5
+    R60
+    L55
+    L1
+    L99
+    R14
+    L82
+
+> Following these rotations would cause the dial to move as follows:
+
+- The dial starts by pointing at 50.
+- The dial is rotated L68 to point at 82.
+- The dial is rotated L30 to point at 52.
+- The dial is rotated R48 to point at 0.
+- The dial is rotated L5 to point at 95.
+- The dial is rotated R60 to point at 55.
+- The dial is rotated L55 to point at 0.
+- The dial is rotated L1 to point at 99.
+- The dial is rotated L99 to point at 0.
+- The dial is rotated R14 to point at 14.
+- The dial is rotated L82 to point at 32.
+
+> Because the dial points at 0 a total of three times during this
+> process, the password in this example is 3.
+
+# Questions
+
+Write your answers directly into this document. Make sure that it is
+clear which question you answer.
+
+1.  Write a function `stops_at_zero` with parameters `start` (the
+    starting position) and `sequence` (the input as a vector), that
+    recursively counts the number of times the dial stops at a zero.
+
+Make sure that your function returns 3 for the following call:
+
+``` r
+stops_at_zero(50, c("L68", "L30", "R48", "L5", "R60", "L55", "L1", "L99", "R14", "L82"))
+#> Error in `stops_at_zero()`:
+#> ! could not find function "stops_at_zero"
+```
+
+What result does your function give for the larger input? Most likely,
+your function will return an error for the larger input. Make sure to
+include `error = TRUE` in the corresponding code chunk so that the
+markdown document still runs to completion.
+
+2.  What is the largest number that the recursive function runs? If that
+    number is larger than 2000, report the result for the first 2000
+    lines of input. Otherwise report the number of zeros from the
+    largest run.
+
+3.  Rewrite the `stops_at_zero` function as a loop. Do the results
+    match?
+
+4.  Create a data frame from the input with variables `direction` (“L”,
+    “R”) and numeric variable `degree`. The function `cumsum` creates a
+    vector of cumulative sums. Use that to add a variable `dial_at` to
+    the data frame that keeps track of where the dial points to after
+    each rotation. Compare the overall number of times that the dial
+    stops at zero to your previous results.
+
+5.  Reflect on the three different approaches to solve the question.
+    Which of these approaches do you like the best? How does the data
+    frame fit into the programming approach? Is it more of an iterative
+    or a functional approach?
+
+6.  An engineering friend insists that the rotations should be expressed
+    properly in degrees rather than integers. Create two variations of
+    the `degree` variable called `angle` and `radians` that contain the
+    rotation as an angle measured in degrees from 0 to 360 (or -180
+    to 180) and as the corresponding radians (360 = 2$\pi$). <br> Now
+    derive the corresponding variables `dial_at_angle` and
+    `dial_at_radians`. How many times does the dial stop at zero now?
+    Make sure to use the function `near` instead of a direct comparison
+    to 0. Why are these numbers still different?
+
+7.  Assume that `dial_at` has the correct result. Calculate the relative
+    error for `dial_at_angle` and `dial_at_radians` (for non-zero values
+    of `dial_at`). Plot the densities and discuss the results.
+
+Before your final submission, make sure that your file renders without
+error.
